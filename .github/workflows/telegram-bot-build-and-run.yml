@@ -1,4 +1,4 @@
-name: Telegram bot build & run
+name: plexmission.bot build & run
 
 on: [push]
 
@@ -15,7 +15,6 @@ jobs:
         python-version: 3.7
     - name: Install dependencies
       run: |
-        cd telegram-bot
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run bot
@@ -23,6 +22,4 @@ jobs:
         BOT_AUTH: ${{ secrets.BOT_AUTH }}
         TRANSMISSION_AUTH: ${{ secrets.TRANSMISSION_AUTH }}
         AUTHORIZED_USERS: ${{ secrets.AUTHORIZED_USERS }}
-      run: |
-        cd telegram-bot
-        python main.py
+      run: python main.py

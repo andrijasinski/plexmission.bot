@@ -1,0 +1,28 @@
+name: Telegram bot build & run
+
+on: [push]
+
+jobs:
+  build-and-run:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        cd telegram-bot
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run bot
+      env:
+        BOT_AUTH: ${{ secrets.BOT_AUTH }}
+        TRANSMISSION_AUTH: ${{ secrets.TRANSMISSION_AUTH }}
+        AUTHORIZED_USERS: ${{ secrets.AUTHORIZED_USERS }}
+      run: |
+        cd telegram-bot
+        python main.py

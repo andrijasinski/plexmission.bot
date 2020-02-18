@@ -17,7 +17,7 @@ from utils import (HandlerBaseClass, auth_command, default_inline_keyboard,
 class HelpHandler(HandlerBaseClass):
 
     command = 'help'
-    lines = [f"/{command} - show this message"]
+    lines = [f"/{command} - list available commands"]
 
     def add_line(self, line):
         self.lines.append(line)
@@ -38,7 +38,7 @@ class HelpHandler(HandlerBaseClass):
 class UpdateHandler(HandlerBaseClass):
 
     command = 'update'
-    help_string = f"/{command} - update Telegram bot"
+    help_string = f"/{command} - pull changes from Github"
 
     @staticmethod
     @auth_command
@@ -55,7 +55,7 @@ class UpdateHandler(HandlerBaseClass):
 class RunCmdHandler(HandlerBaseClass):
 
     command = 'run'
-    help_string = f"/{command} <args> - run shell command"
+    help_string = f"/{command} <args> - run shell command (ex. `/run df -h`)"
 
     @staticmethod
     @auth_command
@@ -90,7 +90,7 @@ class RemountHddHandler(HandlerBaseClass):
 class StartHandler(HandlerBaseClass):
 
     command = 'start'
-    help_string = f"/{command} - run to get your user id and start using bot"
+    help_string = f"/{command} - run to get your user ID"
 
     @staticmethod
     @non_auth_command
@@ -104,7 +104,7 @@ class RestartHandler(HandlerBaseClass):
 
     def __init__(self, updater):
         self.command = 'restart'
-        self.help_string = f"/{self.command} - restart the bot"
+        self.help_string = f"/{self.command} - restart bot"
         self.updater = updater
 
     def handle(self, update, context):

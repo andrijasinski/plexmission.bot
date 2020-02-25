@@ -97,7 +97,10 @@ class StartHandler(HandlerBaseClass):
     def handle(update, context):
         user_id = update.effective_user.id
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text=f"Your User ID --- {user_id}", reply_markup=default_inline_keyboard())
+            chat_id=update.effective_chat.id,
+            text=f"Your User ID --- `{user_id}`",
+            reply_markup=default_inline_keyboard(),
+            parse_mode=telegram.ParseMode.MARKDOWN)
 
 
 class RestartHandler(HandlerBaseClass):

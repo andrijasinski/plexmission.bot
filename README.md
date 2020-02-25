@@ -35,7 +35,7 @@ Adjust paths in `config.py` file for your use case.
 
 ## Usage
 
-To get a list of commands, use `/help` command - it will list all available actions. Nitpick: to get latest update of the bot, use `/update` command to pull changes from Github and `/restart` to start using new version.
+To get a list of commands, use `/help` command - it will list all available actions. Hint: to get latest update of the bot, use `/update` command to pull changes from Github and `/restart` to start using new version.
 
 ## Support
 

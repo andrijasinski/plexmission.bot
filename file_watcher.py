@@ -39,7 +39,7 @@ class FileWatcher(object):
         subthread = threading.Thread(target=cls._watch, args=(updater,))
         logging.info('== Starting file watcher thread...')
         subthread.start()
-        logging.info('== Starting file watcher thread started!')
+        logging.info('== File watcher thread started!')
 
     @staticmethod
     def _watch(updater):

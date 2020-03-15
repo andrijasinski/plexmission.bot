@@ -10,7 +10,6 @@ import telegram
 
 from config import AUTHORIZED_USERS, DEFAULT_INLINE_KEYBOARD_VALUES
 from db import DB
-from managing import Emojis
 
 
 def restricted(func):
@@ -82,7 +81,7 @@ def run_shell_сommand(cmd) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, capture_output=True, check=True, text=True, timeout=10).stdout
 
 
-def get_inline_button(file: pathlib.Path, emoji: Emojis, char_limit=10) -> List[telegram.InlineKeyboardButton]:
+def get_inline_button(file: pathlib.Path, emoji, char_limit=10) -> List[telegram.InlineKeyboardButton]:
     try:
         return [telegram.InlineKeyboardButton(
             f'{emoji.value} {file.name}',

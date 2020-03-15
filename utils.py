@@ -1,14 +1,14 @@
+import json
 import logging
+import pathlib
 import subprocess
 import traceback
-import json
-import pathlib
-from typing import List, Generator
 from functools import wraps
+from typing import Generator, List
 
 import telegram
 
-from config import AUTHORIZED_USERS
+from config import AUTHORIZED_USERS, DEFAULT_INLINE_KEYBOARD_VALUES
 from db import DB
 
 
@@ -77,11 +77,11 @@ def non_auth_command(func):
     return wrapped
 
 
-def run_shell_сommand(cmd):
+def run_shell_сommand(cmd) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, capture_output=True, check=True, text=True, timeout=10).stdout
 
 
-def get_inline_button(file, emoji, char_limit=10):
+def get_inline_button(file: pathlib.Path, emoji, char_limit=10) -> List[telegram.InlineKeyboardButton]:
     try:
         return [telegram.InlineKeyboardButton(
             f'{emoji.value} {file.name}',
@@ -90,11 +90,11 @@ def get_inline_button(file, emoji, char_limit=10):
         return get_inline_button(file, emoji, char_limit=char_limit-1)
 
 
-def default_inline_keyboard():
-    custom_keyboard = [[telegram.KeyboardButton(
-        text="/help"), telegram.KeyboardButton(
-        text="/mediaList"), telegram.KeyboardButton(
-        text="/torrentList")]]
+def default_inline_keyboard() -> telegram.ReplyKeyboardMarkup:
+    custom_keyboard = [
+        [telegram.KeyboardButton(text=v)
+         for v in DEFAULT_INLINE_KEYBOARD_VALUES]
+    ]
     reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
 
     return reply_markup

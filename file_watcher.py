@@ -1,15 +1,15 @@
-import time
-import threading
-import pathlib
 import logging
+import pathlib
+import threading
+import time
 
 import telegram
+from watchdog.events import FileSystemEvent, FileSystemEventHandler
 from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler, FileSystemEvent
 
+from config import PLEX_PRESORTED_FOLDER, PLEX_PRESORTED_IGNORE_FOLDERS
 from db import DB
 from managing import Emojis
-from config import PLEX_PRESORTED_FOLDER, PLEX_PRESORTED_IGNORE_FOLDERS
 from utils import get_inline_button, glob_dir
 
 

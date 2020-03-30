@@ -8,6 +8,7 @@ import managing
 import media
 import torrent
 from config import BOT_AUTH
+from custom_cmds import CustomCmds
 from db import DB
 from file_watcher import FileWatcher
 
@@ -30,6 +31,9 @@ def main():
     for handler in handlers:
         dp.add_handler(CommandHandler(handler.command, handler.handle))
         help_handler.add_line(handler.help_string)
+    for handler in CustomCmds.get_handlers():
+        dp.add_handler(CommandHandler(handler.command, handler.handle))
+        help_handler.add_line(handler.help_string)
     dp.add_handler(CommandHandler(help_handler.command, help_handler.handle))
 
     for callback in callbacks:
@@ -47,7 +51,6 @@ def main():
     if os.environ.get('GITHUB_ACTION') is not None:
         os._exit(0)
     updater.idle()
-
 
 
 if __name__ == '__main__':

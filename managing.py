@@ -69,24 +69,6 @@ class RunCmdHandler(HandlerBaseClass):
         )
 
 
-class RemountHddHandler(HandlerBaseClass):
-
-    command = 'remountHdd'
-    help_string = f"/{command} - remound external HDD"
-
-    @staticmethod
-    @auth_command
-    def handle(update, context):
-        cmd = ['bash', str(pathlib.Path.home() / 'dev' /
-                           'raspi-home-config' / 'mound-hdd.sh')]
-        output = run_shell_сommand(cmd)
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=f"`{' '.join(cmd)}` output:\n\n`{output}`",
-            parse_mode=telegram.ParseMode.MARKDOWN
-        )
-
-
 class StartHandler(HandlerBaseClass):
 
     command = 'start'
@@ -123,8 +105,7 @@ class RestartHandler(HandlerBaseClass):
         Thread(target=stop_and_restart).start()
 
 
-COMMAND_HANDLERS = [StartHandler, UpdateHandler,
-                    RunCmdHandler, RemountHddHandler]
+COMMAND_HANDLERS = [StartHandler, UpdateHandler, RunCmdHandler]
 
 
 class Emojis(Enum):

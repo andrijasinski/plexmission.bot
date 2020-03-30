@@ -5,9 +5,9 @@ import tempfile
 import telegram
 
 from config import TRANSMISSION_AUTH
+from dog import send_dog
 from managing import Emojis
 from utils import HandlerBaseClass, auth_command, run_shell_сommand
-from dog import send_dog
 
 TRANSMISSION_BASE_CMD = ['transmission-remote', '-n', TRANSMISSION_AUTH]
 

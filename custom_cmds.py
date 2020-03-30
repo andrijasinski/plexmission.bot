@@ -23,10 +23,13 @@ class CustomCmdHandler(HandlerBaseClass):
     def create_custom_handler(cls, tg_cmd: str, cmd: str, help_string: str):
         return cls(tg_cmd, cmd, help_string)
 
+    def handle(self, update, context):
+        self._handle(update, context, self.cmd)
+
     @staticmethod
     @auth_command
-    def handle(update, context):
-        output = run_shell_сommand(self.cmd)
+    def _handle(update, context, cmd):
+        output = run_shell_сommand(cmd)
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"`{' '.join(cmd)}` output:\n\n`{output}`",

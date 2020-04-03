@@ -22,9 +22,7 @@ class TorrentListHandler(HandlerBaseClass):
     @auth_command
     def handle(update, context):
         button_list = inline_list_of_torrents()
-        button_list.append([telegram.InlineKeyboardButton(
-            "RELOAD", callback_data=f"torrent_reload")])
-        context.bot.send_message(
+        m = context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"{Emojis.OK_HAND.value} list of torrents:",
             parse_mode=telegram.ParseMode.MARKDOWN,
@@ -32,7 +30,15 @@ class TorrentListHandler(HandlerBaseClass):
         )
 
         def _ticker_func():
-            TorrentListReloadCallbackHandler.handle(update, context)
+            button_list = inline_list_of_torrents()
+            context.bot.edit_message_text(
+                chat_id=update.effective_chat.id,
+                message_id=m.message_id,
+                text=f"{Emojis.OK_HAND.value} list of torrents:",
+                parse_mode=telegram.ParseMode.MARKDOWN,
+                reply_markup=telegram.InlineKeyboardMarkup(button_list),
+            )
+
         Ticker.start_ticker(5, 2, _ticker_func)
 
 
@@ -153,9 +159,6 @@ class TorrentListReloadCallbackHandler(HandlerBaseClass):
     def handle(update, context):
         button_list = inline_list_of_torrents()
 
-        button_list.append([telegram.InlineKeyboardButton(
-            "RELOAD", callback_data=f"torrent_reload")])
-
         try:
             context.bot.edit_message_text(
                 chat_id=update.effective_chat.id,
@@ -181,6 +184,9 @@ def inline_list_of_torrents():
         button_text = f'{attrs[7]} | {attrs[1]} | {attrs[-1][:25]}.. |  Down {attrs[5]}'
         button_list.append([telegram.InlineKeyboardButton(
             button_text, callback_data=f"torrent_list_{attrs[0].replace('*', '')}")])
+
+    button_list.append([telegram.InlineKeyboardButton(
+        "RELOAD", callback_data=f"torrent_reload")])
     return button_list
 
 

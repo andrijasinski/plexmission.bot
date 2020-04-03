@@ -3,7 +3,7 @@ import threading
 import time
 
 
-def Ticker(object):
+class Ticker(object):
 
     @classmethod
     def start_ticker(cls, times, delay, function):

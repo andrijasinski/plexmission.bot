@@ -21,18 +21,19 @@ class TorrentListHandler(HandlerBaseClass):
     @staticmethod
     @auth_command
     def handle(update, context):
-        def _handle():
-            button_list = inline_list_of_torrents()
-            button_list.append([telegram.InlineKeyboardButton(
-                "RELOAD", callback_data=f"torrent_reload")])
-            context.bot.send_message(
-                chat_id=update.effective_chat.id,
-                text=f"{Emojis.OK_HAND.value} list of torrents:",
-                parse_mode=telegram.ParseMode.MARKDOWN,
-                reply_markup=telegram.InlineKeyboardMarkup(button_list),
-            )
-        _handle()
-        Ticker.start_ticker(5, 2, _handle)
+        button_list = inline_list_of_torrents()
+        button_list.append([telegram.InlineKeyboardButton(
+            "RELOAD", callback_data=f"torrent_reload")])
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=f"{Emojis.OK_HAND.value} list of torrents:",
+            parse_mode=telegram.ParseMode.MARKDOWN,
+            reply_markup=telegram.InlineKeyboardMarkup(button_list),
+        )
+
+        def _ticker_func():
+            TorrentListReloadCallbackHandler.handle(update, context)
+        Ticker.start_ticker(5, 2, _ticker_func)
 
 
 class TorrentAddFileHandler(HandlerBaseClass):

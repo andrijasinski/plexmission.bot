@@ -77,7 +77,7 @@ def non_auth_command(func):
     return wrapped
 
 
-def run_shell_сommand(cmd) -> subprocess.CompletedProcess:
+def run_shell_сommand(cmd) -> str:
     return subprocess.run(cmd, capture_output=True, check=True, text=True, timeout=10).stdout
 
 

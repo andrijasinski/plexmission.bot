@@ -7,6 +7,7 @@ import telegram
 from config import TRANSMISSION_AUTH
 from dog import send_dog
 from managing import Emojis
+from ticker import Ticker
 from utils import HandlerBaseClass, auth_command, run_shell_сommand
 
 TRANSMISSION_BASE_CMD = ['transmission-remote', '-n', TRANSMISSION_AUTH]
@@ -20,16 +21,18 @@ class TorrentListHandler(HandlerBaseClass):
     @staticmethod
     @auth_command
     def handle(update, context):
-        button_list = inline_list_of_torrents()
-
-        button_list.append([telegram.InlineKeyboardButton(
-            "RELOAD", callback_data=f"torrent_reload")])
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=f"{Emojis.OK_HAND.value} list of torrents:",
-            parse_mode=telegram.ParseMode.MARKDOWN,
-            reply_markup=telegram.InlineKeyboardMarkup(button_list),
-        )
+        def _handle():
+            button_list = inline_list_of_torrents()
+            button_list.append([telegram.InlineKeyboardButton(
+                "RELOAD", callback_data=f"torrent_reload")])
+            context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text=f"{Emojis.OK_HAND.value} list of torrents:",
+                parse_mode=telegram.ParseMode.MARKDOWN,
+                reply_markup=telegram.InlineKeyboardMarkup(button_list),
+            )
+        _handle()
+        Ticker.start_ticker(5, 2, _handle)
 
 
 class TorrentAddFileHandler(HandlerBaseClass):

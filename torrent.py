@@ -39,7 +39,7 @@ class TorrentListHandler(HandlerBaseClass):
                 reply_markup=telegram.InlineKeyboardMarkup(button_list),
             )
 
-        Ticker.start_ticker(5, 2, _ticker_func)
+        Ticker.start_ticker(5, 1, _ticker_func)
 
 
 class TorrentAddFileHandler(HandlerBaseClass):

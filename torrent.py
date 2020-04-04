@@ -188,7 +188,7 @@ def inline_list_of_torrents():
         attrs = re.sub(r'\s{2,}', separator, line).split(separator)
         if not attrs or not attrs[0] or not attrs[0][0].isnumeric():
             continue
-        button_text = f'{attrs[7]} | {attrs[1]} | {attrs[-1][:25]}.. |  Down {attrs[5]}'
+        button_text = f'{attrs[7]} | {attrs[1]} | {attrs[5]}/s | {attrs[-1][:15]}..'
         button_list.append([telegram.InlineKeyboardButton(
             button_text, callback_data=f"torrent_list_{attrs[0].replace('*', '')}")])
 

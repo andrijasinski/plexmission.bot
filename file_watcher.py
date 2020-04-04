@@ -55,6 +55,6 @@ class FileWatcher(object):
         try:
             while True:
                 time.sleep(1)
-        except:
+        except Exception:
             observer.stop()
         observer.join()

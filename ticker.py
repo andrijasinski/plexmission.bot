@@ -5,21 +5,19 @@ import traceback
 
 
 class Ticker(object):
-
     @classmethod
     def start_ticker(cls, times, delay, function):
-        subthread = threading.Thread(
-            target=cls._tick, args=(times, delay, function,))
+        subthread = threading.Thread(target=cls._tick, args=(times, delay, function,))
         subthread.start()
-        logging.info(f'== Started {repr(subthread)}')
+        logging.info(f"== Started {repr(subthread)}")
 
     @staticmethod
     def _tick(times, delay, function):
         for _ in range(times):
             try:
                 function()
-            except Exception as e:
+            except Exception:
                 tb = traceback.format_exc()
-                logging.error(f'Error running {function.__name__}:\n{tb}')
+                logging.error(f"Error running {function.__name__}:\n{tb}")
             finally:
                 time.sleep(delay)

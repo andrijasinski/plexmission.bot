@@ -9,12 +9,10 @@ import media
 import torrent
 from config import BOT_AUTH
 from custom_cmds import CustomCmds
-from db import DB
 from file_watcher import FileWatcher
 
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 
 
@@ -22,8 +20,12 @@ def main():
     logging.info("== Starting...")
     updater = Updater(BOT_AUTH, use_context=True)
     dp = updater.dispatcher
-    handlers = managing.COMMAND_HANDLERS + torrent.COMMAND_HANDLERS + \
-        media.COMMAND_HANDLERS + [managing.RestartHandler(updater)]
+    handlers = (
+        managing.COMMAND_HANDLERS
+        + torrent.COMMAND_HANDLERS
+        + media.COMMAND_HANDLERS
+        + [managing.RestartHandler(updater)]
+    )
     callbacks = media.CALLBACKS + torrent.CALLBACKS
     message_handlers = torrent.MESSAGE_HANDLERS
 
@@ -37,21 +39,21 @@ def main():
     dp.add_handler(CommandHandler(help_handler.command, help_handler.handle))
 
     for callback in callbacks:
-        dp.add_handler(CallbackQueryHandler(
-            callback=callback.handle, pattern=callback.pattern))
+        dp.add_handler(
+            CallbackQueryHandler(callback=callback.handle, pattern=callback.pattern)
+        )
 
     for message_handler in message_handlers:
-        dp.add_handler(MessageHandler(
-            message_handler.filters, message_handler.handle))
+        dp.add_handler(MessageHandler(message_handler.filters, message_handler.handle))
 
     FileWatcher.watch(updater)
 
     updater.start_polling()
     logging.info("== Started!")
-    if os.environ.get('GITHUB_ACTION') is not None:
+    if os.environ.get("GITHUB_ACTION") is not None:
         os._exit(0)
     updater.idle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

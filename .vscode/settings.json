@@ -1,7 +1,7 @@
 {
   "python.pythonPath": "./venv/bin/python3.7",
   "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
+  "python.linting.flake8Enabled": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,

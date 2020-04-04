@@ -1,10 +1,9 @@
-import pathlib
 import json
-import logging
+import pathlib
 
 
 class DB(object):
-    DB_PATH: pathlib.Path = pathlib.Path.cwd() / 'db.json'
+    DB_PATH: pathlib.Path = pathlib.Path.cwd() / "db.json"
 
     @classmethod
     def get_db(cls):
@@ -20,7 +19,7 @@ class DB(object):
     def update_user_and_chat_id(cls, user_id, chat_id) -> None:
         db = cls.get_db()
         db[str(user_id)] = chat_id
-        with cls.DB_PATH.open(mode='w') as f:
+        with cls.DB_PATH.open(mode="w") as f:
             json.dump(db, f, indent=2)
 
     @classmethod

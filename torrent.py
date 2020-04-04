@@ -149,7 +149,7 @@ class TorrentListReloadCallbackHandler(HandlerBaseClass):
 
         try:
             context.bot.edit_message_text(
-                **torrent_list_message_default_kwargs(update, button_list)
+                **torrent_list_message_default_kwargs(update, button_list),
                 message_id=update.effective_message.message_id,
             )
         except telegram.error.BadRequest:
@@ -163,7 +163,7 @@ def torrent_list_ticking_update(update, context, message_id):
     def _ticker_func():
         button_list = inline_list_of_torrents()
         context.bot.edit_message_text(
-            **torrent_list_message_default_kwargs(update, button_list)
+            **torrent_list_message_default_kwargs(update, button_list),
             message_id=message_id,
         )
     return _ticker_func

@@ -1,6 +1,7 @@
 import logging
 import threading
 import time
+import traceback
 
 
 class Ticker(object):

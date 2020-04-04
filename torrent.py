@@ -23,23 +23,11 @@ class TorrentListHandler(HandlerBaseClass):
     def handle(update, context):
         button_list = inline_list_of_torrents()
         m = context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=f"{Emojis.OK_HAND.value} list of torrents:",
-            parse_mode=telegram.ParseMode.MARKDOWN,
-            reply_markup=telegram.InlineKeyboardMarkup(button_list),
+            **torrent_list_message_default_kwargs(update, button_list)
         )
 
-        def _ticker_func():
-            button_list = inline_list_of_torrents()
-            context.bot.edit_message_text(
-                chat_id=update.effective_chat.id,
-                message_id=m.message_id,
-                text=f"{Emojis.OK_HAND.value} list of torrents:",
-                parse_mode=telegram.ParseMode.MARKDOWN,
-                reply_markup=telegram.InlineKeyboardMarkup(button_list),
-            )
-
-        Ticker.start_ticker(5, 1, _ticker_func)
+        Ticker.start_ticker(7, 1, torrent_list_ticking_update(
+            update, context, m.message_id))
 
 
 class TorrentAddFileHandler(HandlerBaseClass):
@@ -161,14 +149,33 @@ class TorrentListReloadCallbackHandler(HandlerBaseClass):
 
         try:
             context.bot.edit_message_text(
-                chat_id=update.effective_chat.id,
+                **torrent_list_message_default_kwargs(update, button_list)
                 message_id=update.effective_message.message_id,
-                text=f"{Emojis.OK_HAND.value} list of torrents:",
-                parse_mode=telegram.ParseMode.MARKDOWN,
-                reply_markup=telegram.InlineKeyboardMarkup(button_list),
             )
         except telegram.error.BadRequest:
             logging.warning('---- The message has not been changed.')
+
+        Ticker.start_ticker(7, 1, torrent_list_ticking_update(
+            update, context, update.effective_message.message_id))
+
+
+def torrent_list_ticking_update(update, context, message_id):
+    def _ticker_func():
+        button_list = inline_list_of_torrents()
+        context.bot.edit_message_text(
+            **torrent_list_message_default_kwargs(update, button_list)
+            message_id=message_id,
+        )
+    return _ticker_func
+
+
+def torrent_list_message_default_kwargs(update, button_list):
+    return dict(
+        chat_id=update.effective_chat.id,
+        text=f"{Emojis.OK_HAND.value} list of torrents:",
+        parse_mode=telegram.ParseMode.MARKDOWN,
+        reply_markup=telegram.InlineKeyboardMarkup(button_list)
+    )
 
 
 def inline_list_of_torrents():

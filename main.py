@@ -1,8 +1,7 @@
 import logging
 import os
 
-from telegram.ext import (CallbackQueryHandler, CommandHandler, MessageHandler,
-                          Updater)
+from telegram.ext import CallbackQueryHandler, CommandHandler, MessageHandler, Updater
 
 import managing
 import media
@@ -25,15 +24,13 @@ def main():
         + torrent.COMMAND_HANDLERS
         + media.COMMAND_HANDLERS
         + [managing.RestartHandler(updater)]
+        + list(CustomCmds.get_handlers())
     )
     callbacks = media.CALLBACKS + torrent.CALLBACKS
     message_handlers = torrent.MESSAGE_HANDLERS
 
     help_handler = managing.HelpHandler()
     for handler in handlers:
-        dp.add_handler(CommandHandler(handler.command, handler.handle))
-        help_handler.add_line(handler.help_string)
-    for handler in CustomCmds.get_handlers():
         dp.add_handler(CommandHandler(handler.command, handler.handle))
         help_handler.add_line(handler.help_string)
     dp.add_handler(CommandHandler(help_handler.command, help_handler.handle))

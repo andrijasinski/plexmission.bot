@@ -1,6 +1,6 @@
 import os
 import pathlib
-from typing import Dict, List
+from typing import Dict, List, Union
 
 AUTHORIZED_USERS: List[int] = [
     int(uid) for uid in os.environ.get("AUTHORIZED_USERS", "").split(",")
@@ -30,9 +30,13 @@ PLEX_LIBRARY_FOLDERS: Dict[str, pathlib.Path] = {
 
 DEFAULT_INLINE_KEYBOARD_VALUES: List[str] = ["/help", "/mediaList", "/torrentList"]
 
-CUSTOM_CMDS: Dict[str, Dict[str, List[str]]] = {
+CUSTOM_CMDS: Dict[str, Dict[str, Union[List[str], str]]] = {
     "mountHDD": {
         "cmd": ["bash", os.environ.get("MOUNT_HDD_SCRIPT_PATH", "")],
         "help": "Remount media HDD",
-    }
+    },
+    "restartRPIMonitor": {
+        "cmd": ["bash", "sudo", "/etc/init.d/rpimonitor", "restart"],
+        "help": "Restart RPI Monitor",
+    },
 }

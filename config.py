@@ -34,9 +34,5 @@ CUSTOM_CMDS: Dict[str, Dict[str, Union[List[str], str]]] = {
     "mountHDD": {
         "cmd": ["bash", os.environ.get("MOUNT_HDD_SCRIPT_PATH", "")],
         "help": "Remount media HDD",
-    },
-    "restartRPIMonitor": {
-        "cmd": ["bash", "/etc/init.d/rpimonitor", "restart"],
-        "help": "Restart RPI Monitor",
-    },
+    }
 }

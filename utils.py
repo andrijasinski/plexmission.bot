@@ -47,7 +47,7 @@ def report_fail(func):
             tb = traceback.format_exc()
             context.bot.send_message(
                 chat_id=update.effective_chat.id,
-                text=f"Running `{update.effective_message.text}` failed:\n\nStacktrace:\n```{tb}```\n\nSTDERR:\n```{e.stderr}```\n\nSTDOUT:\n```{e.stdout}```",
+                text=f"Running `{update.effective_message.text}` failed:\n\nStacktrace:\n```{tb}```\n\nSTDERR:\n```{e.stderr}```\n\nSTDOUT:\n```{e.stdout}```",  # noqa: E501
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
         except Exception:

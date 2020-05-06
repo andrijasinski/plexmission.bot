@@ -26,7 +26,7 @@ class FileDirCreateHandler(FileSystemEventHandler):
         for _, chat_id in DB.get_all_user_and_chat_ids():
             self._updater.bot.send_message(
                 chat_id=chat_id,
-                text=f'{Emojis.HORNS.value} Hey, new {"folder" if p.is_dir() else "file"} in `{PLEX_PRESORTED_FOLDER}`:',
+                text=f'{Emojis.HORNS.value} Hey, new {"folder" if p.is_dir() else "file"} in `{PLEX_PRESORTED_FOLDER}`:',  # noqa: E501
                 parse_mode=telegram.ParseMode.MARKDOWN,
                 reply_markup=reply_markup,
             )

@@ -3,8 +3,11 @@ from functools import reduce
 
 import telegram
 
-from config import (PLEX_LIBRARY_FOLDERS, PLEX_PRESORTED_FOLDER,
-                    PLEX_PRESORTED_IGNORE_FOLDERS)
+from config import (
+    PLEX_LIBRARY_FOLDERS,
+    PLEX_PRESORTED_FOLDER,
+    PLEX_PRESORTED_IGNORE_FOLDERS,
+)
 from dog import send_dog
 from managing import Emojis
 from utils import HandlerBaseClass, auth_command, get_inline_button, glob_dir

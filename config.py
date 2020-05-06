@@ -31,8 +31,5 @@ PLEX_LIBRARY_FOLDERS: Dict[str, pathlib.Path] = {
 DEFAULT_INLINE_KEYBOARD_VALUES: List[str] = ["/help", "/mediaList", "/torrentList"]
 
 CUSTOM_CMDS: Dict[str, Dict[str, List[str]]] = {
-    "mountHDD": {
-        "cmd": ["bash", os.environ.get("MOUNT_HDD_SCRIPT_PATH", "")],
-        "help": "Remount media HDD",
-    }
+    "mountHDD": {"cmd": ["bash", os.environ.get("MOUNT_HDD_SCRIPT_PATH", "")]}
 }

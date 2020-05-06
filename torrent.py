@@ -48,7 +48,7 @@ class TorrentAddFileHandler(HandlerBaseClass):
 
             context.bot.send_message(
                 chat_id=update.effective_chat.id,
-                text=f"The `{update.effective_message.document.file_name}` torrent added! {Emojis.OK_HAND.value}",
+                text=f"The `{update.effective_message.document.file_name}` torrent added! {Emojis.OK_HAND.value}",  # noqa: E501
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
         send_dog(update, context)

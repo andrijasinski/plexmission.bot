@@ -36,7 +36,7 @@ CUSTOM_CMDS: Dict[str, Dict[str, Union[List[str], str]]] = {
         "help": "Remount media HDD",
     },
     "restartRPIMonitor": {
-        "cmd": ["bash", "sudo", "/etc/init.d/rpimonitor", "restart"],
+        "cmd": ["bash", "/etc/init.d/rpimonitor", "restart"],
         "help": "Restart RPI Monitor",
     },
 }

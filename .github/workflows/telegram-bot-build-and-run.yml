@@ -1,25 +1,29 @@
-name: plexmission.bot build & run
+name: plexmission.bot lint & run
 
 on: [push]
 
 jobs:
   build-and-run:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.7
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run bot
-      env:
-        BOT_AUTH: ${{ secrets.BOT_AUTH }}
-        TRANSMISSION_AUTH: ${{ secrets.TRANSMISSION_AUTH }}
-        AUTHORIZED_USERS: ${{ secrets.AUTHORIZED_USERS }}
-      run: python main.py
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          pip install -r requirements.txt
+      - name: Lint
+        run: |
+          flake8 .
+          mypy .
+      - name: Run bot
+        env:
+          BOT_AUTH: ${{ secrets.BOT_AUTH }}
+          TRANSMISSION_AUTH: ${{ secrets.TRANSMISSION_AUTH }}
+          AUTHORIZED_USERS: ${{ secrets.AUTHORIZED_USERS }}
+        run: python main.py

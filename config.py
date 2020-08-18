@@ -34,5 +34,9 @@ CUSTOM_CMDS: Dict[str, Dict[str, Union[List[str], str]]] = {
     "mountHDD": {
         "cmd": ["bash", os.environ.get("MOUNT_HDD_SCRIPT_PATH", "")],
         "help": "Remount media HDD",
+    },
+    "reloadPlexLibrary": {
+        "cmd": ["curl", os.environ.get("PLEX_LIBRARY_SCAN_URL", "")],
+        "help": "Reload Plex libraries",
     }
 }

@@ -216,7 +216,7 @@ def inline_list_of_torrents():
         )
 
     button_list.append(
-        [telegram.InlineKeyboardButton("RELOAD", callback_data=f"torrent_reload")]
+        [telegram.InlineKeyboardButton("RELOAD", callback_data="torrent_reload")]
     )
     return button_list
 

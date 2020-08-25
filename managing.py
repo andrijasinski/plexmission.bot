@@ -79,10 +79,11 @@ class StartHandler(HandlerBaseClass):
     @non_auth_command
     def handle(update, context):
         user_id = update.effective_user.id
+        reply_markup = telegram.ReplyKeyboardRemove()
         context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"Your User ID --- `{user_id}`",
-            reply_markup=default_inline_keyboard(),
+            reply_markup=reply_markup,
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
 

@@ -1,6 +1,7 @@
 import logging
 import os
 
+import telegram
 from telegram.ext import CallbackQueryHandler, CommandHandler, MessageHandler, Updater
 
 import managing
@@ -44,6 +45,16 @@ def main():
         dp.add_handler(MessageHandler(message_handler.filters, message_handler.handle))
 
     FileWatcher.watch(updater)
+
+    bot = telegram.Bot(token=BOT_AUTH)
+    bot.set_my_commands(
+        [
+            telegram.BotCommand(
+                command=handler.command.lower(), description=handler.help_string
+            )
+            for handler in handlers
+        ]
+    )
 
     updater.start_polling()
     logging.info("== Started!")

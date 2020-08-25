@@ -9,7 +9,6 @@ import telegram
 from utils import (
     HandlerBaseClass,
     auth_command,
-    default_inline_keyboard,
     non_auth_command,
     run_shell_сommand,
 )

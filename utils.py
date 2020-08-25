@@ -106,7 +106,7 @@ def default_inline_keyboard() -> telegram.ReplyKeyboardMarkup:
     custom_keyboard = [
         [
             telegram.InlineKeyboardButton(
-                text=keyboard["text"], callback_data=keyboard["callback"]
+                text=keyboard["text"], url=keyboard["callback"]
             )
             for keyboard in DEFAULT_INLINE_KEYBOARD_VALUES
         ]

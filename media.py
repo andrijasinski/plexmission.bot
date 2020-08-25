@@ -8,7 +8,6 @@ from config import (
     PLEX_PRESORTED_FOLDER,
     PLEX_PRESORTED_IGNORE_FOLDERS,
 )
-from dog import send_dog
 from managing import Emojis
 from utils import HandlerBaseClass, auth_command, get_inline_button, glob_dir
 
@@ -97,7 +96,6 @@ class MoveFileToFolderCallbackCallbackHandler(HandlerBaseClass):
                     text=f"`{f.name}` is moved to {folder} {Emojis.OK_HAND.value}",
                     parse_mode=telegram.ParseMode.MARKDOWN,
                 )
-                return send_dog(update, context)
 
         context.bot.send_message(
             chat_id=update.effective_chat.id,

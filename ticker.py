@@ -15,9 +15,8 @@ class Ticker(object):
     def _tick(times, delay, function):
         for _ in range(times):
             try:
+                time.sleep(delay)
                 function()
             except Exception:
                 tb = traceback.format_exc()
                 logging.error(f"Error running {function.__name__}:\n{tb}")
-            finally:
-                time.sleep(delay)

@@ -5,7 +5,6 @@ import tempfile
 import telegram
 
 from config import TRANSMISSION_AUTH
-from dog import send_dog
 from managing import Emojis
 from ticker import Ticker
 from utils import HandlerBaseClass, auth_command, run_shell_сommand
@@ -51,7 +50,6 @@ class TorrentAddFileHandler(HandlerBaseClass):
                 text=f"The `{update.effective_message.document.file_name}` torrent added! {Emojis.OK_HAND.value}",  # noqa: E501
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
-        send_dog(update, context)
 
 
 class TorrentListCallbackHandler(HandlerBaseClass):
@@ -108,7 +106,6 @@ class InfoTorrentCallbackHandler(HandlerBaseClass):
             text=f"{Emojis.OK_HAND.value} Here's the info:\n\n```{output}```\n",
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
-        send_dog(update, context)
 
 
 class PauseTorrentCallbackHandler(HandlerBaseClass):
@@ -127,7 +124,6 @@ class PauseTorrentCallbackHandler(HandlerBaseClass):
             text=f"{Emojis.OK_HAND.value} The torrent is paused",
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
-        send_dog(update, context)
 
 
 class StartTorrentCallbackHandler(HandlerBaseClass):
@@ -146,7 +142,6 @@ class StartTorrentCallbackHandler(HandlerBaseClass):
             text=f"{Emojis.OK_HAND.value} The torrent is started",
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
-        send_dog(update, context)
 
 
 class TorrentListReloadCallbackHandler(HandlerBaseClass):

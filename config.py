@@ -28,16 +28,11 @@ PLEX_LIBRARY_FOLDERS: Dict[str, pathlib.Path] = {
     "tvshows": PLEX_PRESORTED_FOLDER / "TV Shows",
 }
 
-DEFAULT_INLINE_KEYBOARD_VALUES: List[Dict[str, str]] = [{
-    "text": "Help",
-    "callback": "/help"
-}, {
-    "text": "Reload Plex Libraries",
-    "callback": "/reloadPlexLibrary"
-}, {
-    "text": "List torrents",
-    "callback": "/torrentList"
-}]
+DEFAULT_INLINE_KEYBOARD_VALUES: List[Dict[str, str]] = [
+    {"text": "Help", "callback": "/help"},
+    {"text": "Reload Plex Libraries", "callback": "/reloadPlexLibrary"},
+    {"text": "List torrents", "callback": "/torrentList"},
+]
 
 CUSTOM_CMDS: Dict[str, Dict[str, Union[List[str], str]]] = {
     "mountHDD": {
@@ -47,5 +42,5 @@ CUSTOM_CMDS: Dict[str, Dict[str, Union[List[str], str]]] = {
     "reloadPlexLibrary": {
         "cmd": ["curl", os.environ.get("PLEX_LIBRARY_SCAN_URL", "")],
         "help": "Reload Plex libraries",
-    }
+    },
 }

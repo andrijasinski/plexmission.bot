@@ -52,6 +52,24 @@ class TorrentAddFileHandler(HandlerBaseClass):
             )
 
 
+class TorrentAddMagnetLink(HandlerBaseClass):
+
+    command = "torrentAddMagnet"
+    help_string = f"/{command} - add file by magnet link"
+
+    @staticmethod
+    @auth_command
+    def handle(update, context):
+        cmd = TRANSMISSION_BASE_CMD + ["-a", context.args[0]]
+        run_shell_сommand(cmd)
+
+        context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=f"The torrent added via magnet link {Emojis.OK_HAND.value}",
+            parse_mode=telegram.ParseMode.MARKDOWN,
+        )
+
+
 class TorrentListCallbackHandler(HandlerBaseClass):
 
     pattern = r"torrent_list_.+"
@@ -216,7 +234,7 @@ def inline_list_of_torrents():
     return button_list
 
 
-COMMAND_HANDLERS = [TorrentListHandler]
+COMMAND_HANDLERS = [TorrentListHandler, TorrentAddMagnetLink]
 MESSAGE_HANDLERS = [TorrentAddFileHandler]
 CALLBACKS = [
     TorrentListCallbackHandler,

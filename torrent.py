@@ -60,6 +60,12 @@ class TorrentAddMagnetLink(HandlerBaseClass):
     @staticmethod
     @auth_command
     def handle(update, context):
+        if len(context.args) == 0:
+            return context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text=f"Please specify magnet link!",
+                parse_mode=telegram.ParseMode.MARKDOWN,
+            )
         cmd = TRANSMISSION_BASE_CMD + ["-a", context.args[0]]
         run_shell_сommand(cmd)
 
